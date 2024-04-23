@@ -5,18 +5,33 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     private ImageView imageView_careleft, imageView_show_hide_pwd;
@@ -30,7 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
             "Cadastro realizado com sucesso",
             "A senha deve ter pelo menos 8 caracteres.",
             "Insira um CPF valido!",
-            "CPF já está registrado!"
+            "CPF já está registrado!",
+            "Insira um número de telefone valido!"
     };
 
     @Override
@@ -49,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         imageView_careleft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginView();
+                loginActivity();
             }
         });
 
@@ -68,9 +84,14 @@ public class RegisterActivity extends AppCompatActivity {
                 if(name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || cellphoneNumber.isEmpty()){
                     showSnackbar(v, mensagens[0]);
                 }
-                //Verifico o cpf apenas se tem 11 caracteres, pra facilitar os testes e não ter que usar dados pessoais.
-                else if (cpf.length() < 11) {
+                //Verifico se tem mais ou menos de 11 numeros no cpf, apenas para facilitar os testes e não ter que usar dados pessoais.
+                else if (cpf.length() != 11) {
                     showSnackbar(v, mensagens[3]);
+                }
+                //Verifico se tem mais ou menos de 11 numeros no telefone, apenas para facilitar os testes e não ter que usar dados pessoais.
+
+                else if (cellphoneNumber.length() != 11) {
+                    showSnackbar(v, mensagens[5]);
                 } else if (password.length() < 8) {
                     showSnackbar(v, mensagens[2]);
                 } else {
@@ -82,11 +103,75 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(View v){
+        String email = editText_Email.getText().toString();
+        String password = editText_Password.getText().toString();
 
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    saveUserData();
+                    showSnackbar(v, mensagens[1]);
+                    mainActivity();
+                } else {
+                    String error;
+                    try {
+                        throw task.getException();
+                    } catch (FirebaseAuthUserCollisionException e) {
+                        error = "Esta conta já foi cadastrada.";
+                    } catch (FirebaseAuthInvalidCredentialsException e){
+                        error = "E-mail invalido!";
+                    } catch (Exception e){
+                        error = "Erro ao cadastrar usuário.";
+                    }
+                    showSnackbar(v, error);
+                }
+            }
+        });
+    }
+
+    private void saveUserData(){
+        String name = editText_nameRegister.getText().toString();
+        String lastName = editText_lastNameRegister.getText().toString();
+        String cellphoneNumber = editText_Cellphone.getText().toString();
+        String cpf = editText_CPF.getText().toString();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> users = new HashMap<>();
+        users.put("name", name);
+        users.put("lastName", lastName);
+        users.put("cellPhoneNumber", cellphoneNumber);
+        users.put("CPF", cpf);
+
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DocumentReference documentReference = db.collection("Users").document(userID);
+
+        documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>(){
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d("db", "Sucesso ao salvar os dados");
+
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("db", "Erro ao salvar os dados" + e);
+
+            }
+        });
     }
 
     //Alterar esse parte para quando tiver a tela de login pronta
-    private void loginView(){
+    private void loginActivity(){
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    //Alterar esse parte para quando tiver a tela "em construção" pronta
+    private void mainActivity(){
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
     }
