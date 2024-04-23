@@ -23,10 +23,5 @@
         tools:layout_editor_absoluteY="16dp"
         tools:ignore="MissingConstraints" />
 
-    <View
-        android:layout_width=""
-        android:layout_height=""
 
-
-    />
 </androidx.constraintlayout.widget.ConstraintLayout>
