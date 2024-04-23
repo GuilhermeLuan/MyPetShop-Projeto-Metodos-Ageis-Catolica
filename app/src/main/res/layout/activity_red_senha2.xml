@@ -14,6 +14,7 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
+        android:id="@+id/paws"
         android:layout_width="128dp"
         android:layout_height="81dp"
         android:src="@drawable/paws"
@@ -23,5 +24,15 @@
         tools:layout_editor_absoluteY="16dp"
         tools:ignore="MissingConstraints" />
 
+    <View
+        style="@style/ContainerComponents"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paws" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
