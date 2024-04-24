@@ -18,6 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.mypetshop.callbacks.CheckCpfCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
             "A senha deve ter pelo menos 8 caracteres.",
             "Insira um CPF valido!",
             "CPF já está registrado!",
-            "Insira um número de telefone valido!"
+            "Insira um número de telefone valido!",
+            "O CPF já está em uso. Por favor, tente outro."
     };
 
     @Override
@@ -81,6 +84,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = editText_Password.getText().toString();
                 String cellphoneNumber = editText_Cellphone.getText().toString();
 
+
+
                 if(name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || cellphoneNumber.isEmpty()){
                     showSnackbar(v, mensagens[0]);
                 }
@@ -95,7 +100,16 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (password.length() < 8) {
                     showSnackbar(v, mensagens[2]);
                 } else {
-                    registerUser(v);
+                    checkIfCpfIsUnique(cpf, new CheckCpfCallback() {
+                        @Override
+                        public void onCheckComplete(boolean isUnique) {
+                            if (!isUnique) {
+                                showSnackbar(v, mensagens[6]);
+                            } else {
+                                registerUser(v);
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -135,6 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
         String lastName = editText_lastNameRegister.getText().toString();
         String cellphoneNumber = editText_Cellphone.getText().toString();
         String cpf = editText_CPF.getText().toString();
+        String email = editText_Email.getText().toString();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -142,12 +157,12 @@ public class RegisterActivity extends AppCompatActivity {
         users.put("name", name);
         users.put("lastName", lastName);
         users.put("cellPhoneNumber", cellphoneNumber);
-        users.put("CPF", cpf);
+        users.put("cpf", cpf);
+        users.put("email", email);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         DocumentReference documentReference = db.collection("Users").document(userID);
-
         documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>(){
             @Override
             public void onSuccess(Void unused) {
@@ -198,6 +213,25 @@ public class RegisterActivity extends AppCompatActivity {
         snackbar.setBackgroundTint(Color.WHITE);
         snackbar.setTextColor(Color.BLACK);
         snackbar.show();
+    }
+
+    public void checkIfCpfIsUnique(String cpf, CheckCpfCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Consulta para verificar se algum usuário tem o mesmo CPF
+        db.collection("Users")
+                .whereEqualTo("cpf", cpf)  // Filtra por CPF
+                .get()  // Obtém a resposta
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        boolean isUnique = querySnapshot.isEmpty();  // Se estiver vazio, é único
+                        callback.onCheckComplete(isUnique);
+                    } else {
+                        // Se houve erro, considere não único para segurança
+                        callback.onCheckComplete(false);
+                    }
+                });
     }
 
     private void startComponents(){
