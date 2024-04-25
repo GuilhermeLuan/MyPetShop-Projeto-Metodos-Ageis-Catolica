@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MyPetShop</string>
+    <string name="logo_description">Logo da MyPetShot, um cachorro.</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="forgot_password">Esqueceu sua senha?</string>
+    <string name="sign_in">Entrar</string>
+    <string name="no_registration">Não possui cadastro?</string>
+    <string name="sign_up">Cadastrar</string>
 </resources>
