@@ -7,6 +7,8 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,7 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-    private ImageView imageView_careleft, imageView_show_hide_pwd;
+    private ImageView go_back_button, imageView_show_hide_pwd;
     private EditText editText_nameRegister, editText_lastNameRegister, editText_CPF,
             editText_Cellphone, editText_Email, editText_Password;
 
@@ -63,9 +65,13 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getColor(R.color.white));
+
         startComponents();
 
-        imageView_careleft.setOnClickListener(new View.OnClickListener() {
+        go_back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loginActivity();
@@ -235,7 +241,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void startComponents(){
-        imageView_careleft = findViewById(R.id.imageView_careleft);
+        go_back_button = findViewById(R.id.imageView_careleft);
         imageView_show_hide_pwd = findViewById(R.id.imageView_show_hide_pwd);
         editText_nameRegister = findViewById(R.id.editText_nameRegister);
         editText_lastNameRegister = findViewById(R.id.editText_lastNameRegister);
