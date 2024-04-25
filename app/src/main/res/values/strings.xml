@@ -7,4 +7,6 @@
     <string name="sign_in">Entrar</string>
     <string name="no_registration">Não possui cadastro?</string>
     <string name="sign_up">Cadastrar</string>
+    <string name="building_image">Imagem de um martelo</string>
+    <string name="building">Em construção...</string>
 </resources>
