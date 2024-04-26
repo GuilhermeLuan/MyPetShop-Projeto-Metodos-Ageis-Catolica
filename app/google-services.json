@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "398968885310",
+    "project_id": "mypetshopapp-36da6",
+    "storage_bucket": "mypetshopapp-36da6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398968885310:android:8ce56a0b801beef347816f",
+        "android_client_info": {
+          "package_name": "com.example.mypetshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVU0XPRFTPyTpnBJ8t_V3rTjHqQWmgtao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
