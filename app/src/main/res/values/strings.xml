@@ -9,4 +9,5 @@
     <string name="sign_up">Cadastrar</string>
     <string name="building_image">Imagem de um martelo</string>
     <string name="building">Em construção...</string>
+    <string name="go_back_button">Botão de voltar</string>
 </resources>
