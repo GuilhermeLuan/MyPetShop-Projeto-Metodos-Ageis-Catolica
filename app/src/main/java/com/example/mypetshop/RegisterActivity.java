@@ -198,17 +198,17 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void showHidePwd(){
-        imageView_show_hide_pwd.setImageResource(R.drawable.ic_eye_closed);
+        imageView_show_hide_pwd.setImageResource(R.drawable.ic_eye);
         imageView_show_hide_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(editText_Password.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
                     editText_Password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    imageView_show_hide_pwd.setImageResource(R.drawable.ic_eye_closed);
+                    imageView_show_hide_pwd.setImageResource(R.drawable.ic_eye);
                 }
                 else {
                     editText_Password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    imageView_show_hide_pwd.setImageResource(R.drawable.ic_eye);
+                    imageView_show_hide_pwd.setImageResource(R.drawable.ic_eye_closed);
                 }
             }
         });
@@ -216,8 +216,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void showSnackbar(View v, String mensagem) {
         Snackbar snackbar = Snackbar.make(v, mensagem, Snackbar.LENGTH_SHORT);
-        snackbar.setBackgroundTint(Color.WHITE);
-        snackbar.setTextColor(Color.BLACK);
+        snackbar.setBackgroundTint(Color.GREEN);
+        snackbar.setTextColor(Color.WHITE);
         snackbar.show();
     }
 
