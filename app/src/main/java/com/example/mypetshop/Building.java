@@ -15,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Building extends AppCompatActivity {
 
     private ImageView go_back_button;
@@ -37,6 +39,7 @@ public class Building extends AppCompatActivity {
         go_back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SignOut();
                 Intent intent = new Intent(Building.this, Login.class);
                 startActivity(intent);
             }
@@ -45,5 +48,9 @@ public class Building extends AppCompatActivity {
 
     private void Init(){
         go_back_button = findViewById(R.id.go_back_button);
+    }
+
+    private void SignOut(){
+        FirebaseAuth.getInstance().signOut();
     }
 }
