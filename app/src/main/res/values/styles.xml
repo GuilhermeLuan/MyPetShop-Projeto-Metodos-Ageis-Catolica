@@ -13,7 +13,7 @@
         <item name="android:color">@color/green_dark</item>
         <item name="android:padding">0.001dp</item>
         <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginTop">24dp</item>
         <item name="android:layout_marginRight">15dp</item>
     </style>
 
@@ -47,11 +47,9 @@
         <item name="android:background">@drawable/buttonselector2</item>
     </style>
     <style name="CodeInput">
-        <item name="android:width">48dp</item>
-        <item name="android:layout_height">48dp</item>
         <item name="android:textColor">@color/green_dark</item>
         <item name="android:textSize">28sp</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
-
+        <item name="android:background">@drawable/code_input</item>
     </style>
 </resources>
