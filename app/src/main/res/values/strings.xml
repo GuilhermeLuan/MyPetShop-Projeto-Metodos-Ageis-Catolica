@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyPetShop</string>
+    <string name="password_reset">Redefinição de senha</string>
+    <string name="enter_the_code">Insira o código</string>
 </resources>

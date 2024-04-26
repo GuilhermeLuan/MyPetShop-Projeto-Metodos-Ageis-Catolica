@@ -46,4 +46,12 @@
         <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:background">@drawable/buttonselector2</item>
     </style>
+    <style name="CodeInput">
+        <item name="android:width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textColor">@color/green_dark</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+
+    </style>
 </resources>
