@@ -1,4 +1,4 @@
-package com.example.mypetshop.callbacks;
+package com.example.mypetshop.util;
 
 public interface CheckCpfCallback {
     void onCheckComplete(boolean isUnique);

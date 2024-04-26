@@ -1,11 +1,22 @@
 package com.example.mypetshop;
 
+import static com.example.mypetshop.util.CPFAndPhoneFormatter.formatCPF;
+import static com.example.mypetshop.util.CPFAndPhoneFormatter.formatPhoneNumber;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +31,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.mypetshop.callbacks.CheckCpfCallback;
+import com.example.mypetshop.util.CheckCpfCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,7 +49,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-    private ImageView go_back_button, imageView_show_hide_pwd;
+    private ImageView go_back_button;
     private EditText editText_nameRegister, editText_lastNameRegister, editText_CPF,
             editText_Cellphone, editText_Email, editText_Password;
 
@@ -71,6 +82,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         startComponents();
 
+        applyCPFMask();
+        applyPhoneMask();
+
         go_back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,26 +110,27 @@ public class RegisterActivity extends AppCompatActivity {
                     showSnackbar(v, mensagens[0]);
                 }
                 //Verifico se tem mais ou menos de 11 numeros no cpf, apenas para facilitar os testes e não ter que usar dados pessoais.
-                else if (cpf.length() != 11) {
+                else if (cpf.length() != 14) {
                     showSnackbar(v, mensagens[3]);
                 }
                 //Verifico se tem mais ou menos de 11 numeros no telefone, apenas para facilitar os testes e não ter que usar dados pessoais.
 
-                else if (cellphoneNumber.length() != 11) {
+                else if (cellphoneNumber.length() != 15) {
                     showSnackbar(v, mensagens[5]);
                 } else if (password.length() < 8) {
                     showSnackbar(v, mensagens[2]);
                 } else {
-                    checkIfCpfIsUnique(cpf, new CheckCpfCallback() {
-                        @Override
-                        public void onCheckComplete(boolean isUnique) {
-                            if (!isUnique) {
-                                showSnackbar(v, mensagens[6]);
-                            } else {
-                                registerUser(v);
-                            }
-                        }
-                    });
+                    registerUser(v);
+//                    checkIfCpfIsUnique(cpf, new CheckCpfCallback() {
+//                        @Override
+//                        public void onCheckComplete(boolean isUnique) {
+//                            if (!isUnique) {
+//                                showSnackbar(v, mensagens[6]);
+//                            } else {
+//                                registerUser(v);
+//                            }
+//                        }
+//                    });
                 }
             }
         });
@@ -155,20 +170,18 @@ public class RegisterActivity extends AppCompatActivity {
         String lastName = editText_lastNameRegister.getText().toString();
         String cellphoneNumber = editText_Cellphone.getText().toString();
         String cpf = editText_CPF.getText().toString();
-        String email = editText_Email.getText().toString();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, Object> users = new HashMap<>();
         users.put("name", name);
-        users.put("lastName", lastName);
-        users.put("cellPhoneNumber", cellphoneNumber);
+        users.put("surname", lastName);
+        users.put("telephone", cellphoneNumber);
         users.put("cpf", cpf);
-        users.put("email", email);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        DocumentReference documentReference = db.collection("Users").document(userID);
+        DocumentReference documentReference = db.collection("users").document(userID);
         documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>(){
             @Override
             public void onSuccess(Void unused) {
@@ -197,19 +210,110 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void showHidePwd(){
-        imageView_show_hide_pwd.setImageResource(R.drawable.ic_eye);
-        imageView_show_hide_pwd.setOnClickListener(new View.OnClickListener() {
+    private void applyCPFMask(){
+        editText_CPF.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+            private String previousText = "";
+
+
             @Override
-            public void onClick(View v) {
-                if(editText_Password.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
-                    editText_Password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    imageView_show_hide_pwd.setImageResource(R.drawable.ic_eye);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(isUpdating){
+                    isUpdating = false;
+                    return;
                 }
-                else {
-                    editText_Password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    imageView_show_hide_pwd.setImageResource(R.drawable.ic_eye_closed);
+
+                String formattedText = formatCPF(s.toString());
+
+                isUpdating = true;
+                editText_CPF.setText(formattedText);
+                editText_CPF.setSelection(formattedText.length());
+            }
+        });
+    }
+
+    private void applyPhoneMask(){
+        editText_Cellphone.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+            private String previousText = "";
+
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(isUpdating){
+                    isUpdating = false;
+                    return;
                 }
+
+                String formattedNumber = formatPhoneNumber(s.toString());
+
+                isUpdating = true;
+                editText_Cellphone.setText(formattedNumber);
+                editText_Cellphone.setSelection(formattedNumber.length());
+            }
+        });
+    }
+
+    @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
+    private void showHidePwd(){
+        editText_Password.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final EditText editText = (EditText) v;
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    final float clickX = event.getX();
+                    final int editTextWidth = editText.getWidth();
+                    final Drawable drawableStart = editText.getCompoundDrawables()[0];
+                    final int paddingRight = editText.getPaddingRight();
+
+                    final float textSize = editText.getTextSize();
+                    final ColorStateList textColor = editText.getTextColors();
+                    final ColorStateList textColorHint = editText.getHintTextColors();
+                    final Typeface typeface = editText.getTypeface();
+
+                    Drawable drawableEnd = editText.getCompoundDrawables()[2];
+                    if (drawableEnd != null) {
+                        final int iconWidth = drawableEnd.getBounds().width();
+
+                        if (clickX >= (editTextWidth - paddingRight - iconWidth)) {
+                            Log.d("CLICK", "Clicou no icone");
+                            if(editText.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)){
+                                drawableEnd = getDrawable(R.drawable.password_hidden);
+                                editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                            }else {
+                                drawableEnd = getDrawable(R.drawable.password_show);
+                                editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                            }
+                            editText.setCompoundDrawablesWithIntrinsicBounds(drawableStart, null, drawableEnd, null);
+
+                            editText.setTypeface(typeface);
+                            editText.setTextSize(textSize);
+                            editText.setTextColor(textColor);
+                            editText.setHintTextColor(textColorHint);
+                        }
+                    }
+                }
+                return false;
             }
         });
     }
@@ -225,7 +329,7 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Consulta para verificar se algum usuário tem o mesmo CPF
-        db.collection("Users")
+        db.collection("users")
                 .whereEqualTo("cpf", cpf)  // Filtra por CPF
                 .get()  // Obtém a resposta
                 .addOnCompleteListener(task -> {
@@ -242,7 +346,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void startComponents(){
         go_back_button = findViewById(R.id.imageView_careleft);
-        imageView_show_hide_pwd = findViewById(R.id.imageView_show_hide_pwd);
+        //imageView_show_hide_pwd = findViewById(R.id.imageView_show_hide_pwd);
         editText_nameRegister = findViewById(R.id.editText_nameRegister);
         editText_lastNameRegister = findViewById(R.id.editText_lastNameRegister);
         editText_CPF = findViewById(R.id.editText_CPF);
