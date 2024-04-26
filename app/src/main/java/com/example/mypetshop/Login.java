@@ -59,25 +59,6 @@ public class Login extends AppCompatActivity {
                 SignIn(email, password, v);
             }
         });
-
-        password_input.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final EditText editText = (EditText) v;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    final float click_X = event.getX();
-                    final int editTextWidth = editText.getWidth();
-                    final int icon_width = editText.getCompoundDrawables()[2].getBounds().width();
-                    final int paddingRight = editText.getPaddingRight();
-
-                    if(click_X >= (editTextWidth - paddingRight - icon_width)){
-
-                    }
-                }
-                return false;
-            }
-        });
         password_input.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
             @Override
