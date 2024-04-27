@@ -1,7 +1,7 @@
 package com.example.mypetshop;
 
-import static com.example.mypetshop.util.CPFAndPhoneFormatter.formatCPF;
-import static com.example.mypetshop.util.CPFAndPhoneFormatter.formatPhoneNumber;
+import static com.example.mypetshop.utils.CPFAndPhoneFormatter.formatCPF;
+import static com.example.mypetshop.utils.CPFAndPhoneFormatter.formatPhoneNumber;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -29,7 +29,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.mypetshop.util.CheckCpfCallback;
+import com.example.mypetshop.utils.CheckCpfCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

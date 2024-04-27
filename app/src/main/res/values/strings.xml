@@ -1,26 +1,39 @@
 <resources>
     <string name="app_name">MyPetShop</string>
-    <string name="logo_description">Logo da MyPetShot, um cachorro.</string>
-    <string name="email">Email</string>
-    <string name="password">Senha</string>
-    <string name="forgot_password">Esqueceu sua senha?</string>
-    <string name="sign_in">Entrar</string>
+
     <string name="no_registration">Não possui cadastro?</string>
-    <string name="sign_up">Cadastrar</string>
-    <string name="building_image">Imagem de um martelo</string>
     <string name="building">Em construção...</string>
-    <string name="go_back_button">Botão de voltar</string>
-    <string name="signup">Cadastrar</string>
-    <string name="password_register">Sua senha</string>
-    <string name="password_register_textview">Senha</string>
-    <string name="email_register_edit_text">Seu email</string>
-    <string name="email_register_text_view">Email</string>
-    <string name="cellphone_register_edit_text">(00) 00000-0000</string>
-    <string name="cellphone_register_text_view">Celular</string>
-    <string name="cpf_register_edit_text">Seu CPF</string>
-    <string name="cpf_register_text_view">CPF</string>
-    <string name="last_name_edit_text">Seu sobrenome</string>
-    <string name="last_name_text_view">Sobrenome</string>
-    <string name="toolbar_singup">Cadastro</string>
-    <string name="animal_paws">animal paws</string>
+
+    <!-- start header text -->
+    <string name="sign_up_header">Cadastro</string>
+    <!-- end header text -->
+
+    <!-- start input text -->
+    <string name="email">Email</string>
+    <string name="email_placeholder">Seu email</string>
+    <string name="password">Senha</string>
+    <string name="password_placeholder">Sua senha</string>
+    <string name="cellphone_label">Celular</string>
+    <string name="cellphone_placeholder">(00) 00000–0000</string>
+    <string name="cpf_label">CPF</string>
+    <string name="cpf_placeholder">000.000.000–00</string>
+    <string name="lastname_label">Sobrenome</string>
+    <string name="lastname_placeholder">Seu sobrenome</string>
+    <string name="name_label">Nome</string>
+    <string name="name_placeholder">Seu nome</string>
+    <!-- end input text -->
+
+    <!-- start content description -->
+    <string name="logo_description">Logo da MyPetShot, um cachorro.</string>
+    <string name="building_image">Imagem de um martelo.</string>
+    <string name="animal_paws">Imagem de patinhas.</string>
+    <string name="go_back_button">Botão de voltar.</string>
+    <!-- end content description -->
+
+    <!-- start button -->
+    <string name="sign_in">Entrar</string>
+    <string name="sign_up">Cadastrar</string>
+    <string name="forgot_password">Esqueceu sua senha?</string>
+    <!-- end button -->
+
 </resources>

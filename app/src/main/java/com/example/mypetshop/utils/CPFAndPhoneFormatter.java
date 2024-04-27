@@ -1,4 +1,4 @@
-package com.example.mypetshop.util;
+package com.example.mypetshop.utils;
 
 public class CPFAndPhoneFormatter {
     public static String formatCPF(String s) {
