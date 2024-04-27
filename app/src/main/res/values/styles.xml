@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ComponentsContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/components_container</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:layout_marginLeft">24dp</item>
+    </style>
+
+    <style name="Input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/input</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/green_dark</item>
+        <item name="android:textColorHint">@color/placeholder</item>
+    </style>
+
+    <style name="LargeButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/large_button</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="SmallButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:background">@drawable/small_button</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:paddingLeft">12dp</item>
+    </style>
+
+    <style name="GoBackButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/go_back_button</item>
+    </style>
+</resources>
