@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -105,32 +103,26 @@ public class RegisterActivity extends AppCompatActivity {
                 String cellphoneNumber = editText_Cellphone.getText().toString();
 
 
-
                 if(name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || cellphoneNumber.isEmpty()){
                     showSnackbar(v, mensagens[0]);
                 }
-                //Verifico se tem mais ou menos de 11 numeros no cpf, apenas para facilitar os testes e não ter que usar dados pessoais.
                 else if (cpf.length() != 14) {
                     showSnackbar(v, mensagens[3]);
-                }
-                //Verifico se tem mais ou menos de 11 numeros no telefone, apenas para facilitar os testes e não ter que usar dados pessoais.
-
-                else if (cellphoneNumber.length() != 15) {
+                }  else if (cellphoneNumber.length() != 15) {
                     showSnackbar(v, mensagens[5]);
                 } else if (password.length() < 8) {
                     showSnackbar(v, mensagens[2]);
                 } else {
-                    registerUser(v);
-//                    checkIfCpfIsUnique(cpf, new CheckCpfCallback() {
-//                        @Override
-//                        public void onCheckComplete(boolean isUnique) {
-//                            if (!isUnique) {
-//                                showSnackbar(v, mensagens[6]);
-//                            } else {
-//                                registerUser(v);
-//                            }
-//                        }
-//                    });
+                    checkIfCpfIsUnique(cpf, new CheckCpfCallback() {
+                        @Override
+                        public void onCheckComplete(boolean isUnique) {
+                            if (!isUnique) {
+                                showSnackbar(v, mensagens[6]);
+                            } else {
+                                registerUser(v);
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -320,7 +312,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void showSnackbar(View v, String mensagem) {
         Snackbar snackbar = Snackbar.make(v, mensagem, Snackbar.LENGTH_SHORT);
-        snackbar.setBackgroundTint(Color.GREEN);
+        snackbar.setBackgroundTint(getColor(R.color.green_normal));
         snackbar.setTextColor(Color.WHITE);
         snackbar.show();
     }
@@ -346,7 +338,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void startComponents(){
         go_back_button = findViewById(R.id.imageView_careleft);
-        //imageView_show_hide_pwd = findViewById(R.id.imageView_show_hide_pwd);
         editText_nameRegister = findViewById(R.id.editText_nameRegister);
         editText_lastNameRegister = findViewById(R.id.editText_lastNameRegister);
         editText_CPF = findViewById(R.id.editText_CPF);
