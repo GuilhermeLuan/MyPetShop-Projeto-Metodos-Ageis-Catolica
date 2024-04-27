@@ -10,4 +10,17 @@
     <string name="building_image">Imagem de um martelo</string>
     <string name="building">Em construção...</string>
     <string name="go_back_button">Botão de voltar</string>
+    <string name="signup">Cadastrar</string>
+    <string name="password_register">Sua senha</string>
+    <string name="password_register_textview">Senha</string>
+    <string name="email_register_edit_text">Seu email</string>
+    <string name="email_register_text_view">Email</string>
+    <string name="cellphone_register_edit_text">(00) 00000-0000</string>
+    <string name="cellphone_register_text_view">Celular</string>
+    <string name="cpf_register_edit_text">Seu CPF</string>
+    <string name="cpf_register_text_view">CPF</string>
+    <string name="last_name_edit_text">Seu sobrenome</string>
+    <string name="last_name_text_view">Sobrenome</string>
+    <string name="toolbar_singup">Cadastro</string>
+    <string name="animal_paws">animal paws</string>
 </resources>
