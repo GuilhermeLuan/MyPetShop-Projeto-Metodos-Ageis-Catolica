@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background"
-        tools:context=".Login">
+        tools:context=".LoginActivity">
 
         <View
             android:id="@+id/content"
@@ -146,7 +146,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/register_button"
+            android:id="@+id/sign_up_button"
             style="@style/SmallButton"
             android:layout_width="wrap_content"
             android:layout_height="36dp"

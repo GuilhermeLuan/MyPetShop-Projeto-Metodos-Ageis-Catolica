@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/background"
 
-        tools:context=".Building">
+        tools:context=".BuildingActivity">
 
         <RelativeLayout
             android:id="@+id/header"

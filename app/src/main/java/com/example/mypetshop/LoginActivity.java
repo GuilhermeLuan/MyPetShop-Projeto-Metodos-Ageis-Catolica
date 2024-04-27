@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -27,11 +28,12 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private TextView sign_in_button;
     private EditText email_input;
     private EditText password_input;
+    private AppCompatButton sign_up_button;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,11 @@ public class Login extends AppCompatActivity {
                 return false;
             }
         });
+
+        sign_up_button.setOnClickListener(v -> {
+            GoToActivity(RegisterActivity.class);
+        });
+
     }
     @Override
     protected void onStart(){
@@ -105,19 +112,20 @@ public class Login extends AppCompatActivity {
         FirebaseUser authUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if(authUser != null){
-            GoToHomeScreen();
+            GoToActivity(BuildingActivity.class);
         }
     }
     private void Init(){
         sign_in_button = findViewById(R.id.sign_in_button);
         email_input = findViewById(R.id.email_input);
         password_input = findViewById(R.id.password_input);
+        sign_up_button = findViewById(R.id.sign_up_button);
     }
 
     private void SignIn(String email, String password, View v){
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
-                GoToHomeScreen();
+                GoToActivity(BuildingActivity.class);
             }else {
                 String errorMessage = "Erro ao logar usuário.";
                 try {
@@ -138,8 +146,8 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void GoToHomeScreen(){
-        Intent intent = new Intent(Login.this, Building.class);
+    private void GoToActivity(Class<?> activity){
+        Intent intent = new Intent(LoginActivity.this, activity);
         startActivity(intent);
     }
     private void ShowErroMessage(String message, View v){

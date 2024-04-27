@@ -139,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     saveUserData();
                     showSnackbar(v, mensagens[1]);
-                    mainActivity();
+                    buildingActivity();
                 } else {
                     String error;
                     try {
@@ -190,15 +190,13 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    //Alterar esse parte para quando tiver a tela de login pronta
     private void loginActivity(){
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 
-    //Alterar esse parte para quando tiver a tela "em construção" pronta
-    private void mainActivity(){
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+    private void buildingActivity(){
+        Intent intent = new Intent(RegisterActivity.this, BuildingActivity.class);
         startActivity(intent);
     }
 

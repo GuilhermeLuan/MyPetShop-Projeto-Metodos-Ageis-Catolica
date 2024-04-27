@@ -1,13 +1,11 @@
 package com.example.mypetshop;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Building extends AppCompatActivity {
+public class BuildingActivity extends AppCompatActivity {
 
-    private ImageView go_back_button;
+    private ImageButton go_back_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +38,7 @@ public class Building extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SignOut();
-                Intent intent = new Intent(Building.this, Login.class);
+                Intent intent = new Intent(BuildingActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
