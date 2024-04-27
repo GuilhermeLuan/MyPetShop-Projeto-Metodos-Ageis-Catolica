@@ -335,7 +335,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void startComponents(){
-        go_back_button = findViewById(R.id.imageView_careleft);
+        go_back_button = findViewById(R.id.go_back_button);
         editText_nameRegister = findViewById(R.id.editText_nameRegister);
         editText_lastNameRegister = findViewById(R.id.editText_lastNameRegister);
         editText_CPF = findViewById(R.id.editText_CPF);

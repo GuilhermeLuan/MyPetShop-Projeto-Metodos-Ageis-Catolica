@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header"
             android:layout_marginTop="266dp"
-            android:src="@drawable/hammer"
+            android:src="@drawable/hammer_icon"
             android:contentDescription="@string/building_image"
             />
 

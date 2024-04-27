@@ -18,10 +18,17 @@
         <item name="android:textColorHint">@color/placeholder</item>
     </style>
 
+    <style name="InputLabel">
+        <item name="android:textColor">@color/green_dark</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="LargeButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/large_button</item>
+        <item name="android:background">@drawable/large_button_selector</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
@@ -31,7 +38,7 @@
     <style name="SmallButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">36dp</item>
-        <item name="android:background">@drawable/small_button</item>
+        <item name="android:background">@drawable/small_button_selector</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
@@ -46,9 +53,18 @@
         <item name="android:paddingLeft">12dp</item>
     </style>
 
+    <style name="HeaderText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/green_dark</item>
+    </style>
+
     <style name="GoBackButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/go_back_button</item>
+        <item name="android:background">@drawable/go_back_button_selector</item>
     </style>
 </resources>
