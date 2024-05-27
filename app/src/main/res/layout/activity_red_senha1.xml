@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"  >
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".redSenha1">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        style="@style/Button_Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <ImageButton
+            style="@style/GoBackButton"
+            android:id="@+id/go_back_button"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            />
+
+        <TextView
+            style="@style/HeaderText"
+            android:text="@string/sign_up_header"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:textAlignment="center"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@+id/go_back_button"
+            android:layout_marginEnd="12dp"
+            />
+    </RelativeLayout>
+
+
+
+    <ImageView
+        android:id="@+id/img_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/paws"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <View
+        android:id="@+id/containerComponents"
+        style="@style/ContainerComponents"
+        android:layout_marginTop="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_2"/>
+
+    <TextView
+        android:id="@+id/Subtitle_2"
+        style="@style/Edit_text_subtitle_2"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="116dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:hint="Para redefinir sua senha, enviaremos um código para o seu email vinculado a sua conta."
+        android:lineHeight="16.07dp"
+        android:textAlignment="center"
+        android:textColorHint="@color/green_dark"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/containerComponents"
+        app:layout_constraintEnd_toEndOf="@id/containerComponents"
+        app:layout_constraintTop_toTopOf="@id/containerComponents"
+        app:layout_constraintBottom_toBottomOf="@id/containerComponents"
+        />
+
+    <TextView
+        android:id="@+id/Subtitle"
+        style="@style/Edit_text_subtitle"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColorHint="@color/green_dark"
+        android:textSize="14dp"
+        android:hint="Insira seu email"
+        app:layout_constraintStart_toStartOf="@+id/containerComponents"
+        app:layout_constraintEnd_toEndOf="@id/containerComponents"
+        app:layout_constraintTop_toTopOf="@id/containerComponents"
+        app:layout_constraintBottom_toBottomOf="@id/containerComponents" />
+
+    <EditText
+        style="@style/Edit_Text"
+        android:id="@+id/Text"
+        android:autofillHints="emailAddress"
+        android:layout_marginTop="24dp"
+        android:hint="Seu email"
+        app:layout_constraintTop_toTopOf="@+id/Subtitle"
+        app:layout_constraintStart_toStartOf="@id/containerComponents"
+        app:layout_constraintEnd_toEndOf="@id/containerComponents"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_register"
+        style="@style/Button"
+        android:text="Enviar"
+        android:textSize="16sp"
+        android:fontFamily="@font/montserrat_bold"
+        app:layout_constraintTop_toBottomOf="@id/containerComponents"
+        app:layout_constraintStart_toStartOf="@id/containerComponents"
+        app:layout_constraintEnd_toEndOf="@id/containerComponents"
+        android:layout_marginTop="0dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>

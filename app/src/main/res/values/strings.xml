@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyPetShop</string>
+    <string name="sign_up_header">"Redefinição de senha "</string>
 </resources>
